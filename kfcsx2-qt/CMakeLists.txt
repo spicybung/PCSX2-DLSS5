@@ -289,8 +289,10 @@ set_source_files_properties(PrecompiledHeader.cpp PROPERTIES HEADER_FILE_ONLY TR
 target_include_directories(pcsx2-qt PRIVATE
 	${Qt6Gui_PRIVATE_INCLUDE_DIRS}
 	"${CMAKE_BINARY_DIR}/common/include"
-	"${CMAKE_SOURCE_DIR}/pcsx2"
-	"${CMAKE_SOURCE_DIR}/pcsx2-qt"
+	"${CMAKE_SOURCE_DIR}/kfcsx2"
+	"${CMAKE_SOURCE_DIR}/kfcsx2-qt"
+	"${CMAKE_CURRENT_SOURCE_DIR}"
+	"${CMAKE_CURRENT_BINARY_DIR}"
 )
 
 target_link_libraries(pcsx2-qt PRIVATE

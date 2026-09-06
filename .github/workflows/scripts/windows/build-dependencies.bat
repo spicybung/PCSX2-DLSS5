@@ -105,7 +105,6 @@ call :downloadfile "ffmpeg-%FFMPEG%.tar.xz" "https://ffmpeg.org/releases/ffmpeg-
 call :downloadfile "make-%MAKE%-without-guile-w32-bin.zip" "https://sourceforge.net/projects/ezwinports/files/make-%MAKE%-without-guile-w32-bin.zip/download" fb66a02b530f7466f6222ce53c0b602c5288e601547a034e4156a512dd895ee7 || goto error
 call :downloadfile "meson-%MESON%.tar.gz" "https://github.com/mesonbuild/meson/releases/download/%MESON%/meson-%MESON%.tar.gz" 7890287d911dd4ee1ebd0efb61ed0321bfcd87c725df923a837cf90c6508f96b || goto error
 call :downloadfile "pkgconf-pkgconf-%PKGCONF%.zip" "https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-%PKGCONF%.zip" c5b5f88a2ca2324dc5d857e35bb145e24290e326357ea94a86d47b8d7fa15477 || goto error
-call :downloadfile "amf-headers-v%AMF%.tar.gz" "https://github.com/GPUOpen-LibrariesAndSDKs/AMF/releases/download/v%AMF%/AMF-headers-v%AMF%.tar.gz" d3c12eb324edf05e214608b6a395a51dd95770ed9d45520185d6c3a206811c99 || goto error
 call :downloadfile "libvpl-%LIBVPL%.zip" "https://github.com/intel/libvpl/archive/v%LIBVPL%.zip" 980d9f3f1dbecc7cbc28b0ff0c0647f925cbaf72844c85515b69b89e9603c35d || goto error
 call :downloadfile "nv-codec-headers-%NVENC%.tar.gz" "https://github.com/FFmpeg/nv-codec-headers/releases/download/n%NVENC%/nv-codec-headers-%NVENC%.tar.gz" 13da39edb3a40ed9713ae390ca89faa2f1202c9dda869ef306a8d4383e242bee || goto error
 call :downloadfile "opus-%LIBOPUS%.tar.gz" "https://downloads.xiph.org/releases/opus/opus-%LIBOPUS%.tar.gz" 6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1 || goto error
@@ -134,6 +133,188 @@ call :downloadfile "shaderc-glslang-%SHADERC_GLSLANG%.zip" "https://github.com/K
 call :downloadfile "shaderc-spirv-headers-%SHADERC_SPIRVHEADERS%.zip" "https://github.com/KhronosGroup/SPIRV-Headers/archive/%SHADERC_SPIRVHEADERS%.zip" d2f071e94c081f5a4606559770ebf1f7d1eac92a1def0c3e10609844aa8b69b2 || goto error
 call :downloadfile "shaderc-spirv-tools-%SHADERC_SPIRVTOOLS%.zip" "https://github.com/KhronosGroup/SPIRV-Tools/archive/%SHADERC_SPIRVTOOLS%.zip" 4011be89aa73e3461c9deef73936a62c79a3097590c5135d058041cc9fb99c6f || goto error
 
+rem -----------------------------------------------------------------------------
+rem CI SAFETY PASS
+rem Some GitHub Actions runs have reached the install phase with archives from
+rem the initial download list missing. Ensure every declared archive exists now,
+rem immediately before any build/install step consumes it.
+rem -----------------------------------------------------------------------------
+if not exist "qtbase-everywhere-src-%QT%.zip" (
+  echo CI safety download: qtbase-everywhere-src-%QT%.zip
+  curl.exe -L --fail --retry 3 -o "qtbase-everywhere-src-%QT%.zip" "https://download.qt.io/official_releases/qt/%QTMINOR%/%QT%/submodules/qtbase-everywhere-src-%QT%.zip" || goto error
+)
+
+if not exist "qtimageformats-everywhere-src-%QT%.zip" (
+  echo CI safety download: qtimageformats-everywhere-src-%QT%.zip
+  curl.exe -L --fail --retry 3 -o "qtimageformats-everywhere-src-%QT%.zip" "https://download.qt.io/official_releases/qt/%QTMINOR%/%QT%/submodules/qtimageformats-everywhere-src-%QT%.zip" || goto error
+)
+
+if not exist "qtsvg-everywhere-src-%QT%.zip" (
+  echo CI safety download: qtsvg-everywhere-src-%QT%.zip
+  curl.exe -L --fail --retry 3 -o "qtsvg-everywhere-src-%QT%.zip" "https://download.qt.io/official_releases/qt/%QTMINOR%/%QT%/submodules/qtsvg-everywhere-src-%QT%.zip" || goto error
+)
+
+if not exist "qttools-everywhere-src-%QT%.zip" (
+  echo CI safety download: qttools-everywhere-src-%QT%.zip
+  curl.exe -L --fail --retry 3 -o "qttools-everywhere-src-%QT%.zip" "https://download.qt.io/official_releases/qt/%QTMINOR%/%QT%/submodules/qttools-everywhere-src-%QT%.zip" || goto error
+)
+
+if not exist "qttranslations-everywhere-src-%QT%.zip" (
+  echo CI safety download: qttranslations-everywhere-src-%QT%.zip
+  curl.exe -L --fail --retry 3 -o "qttranslations-everywhere-src-%QT%.zip" "https://download.qt.io/official_releases/qt/%QTMINOR%/%QT%/submodules/qttranslations-everywhere-src-%QT%.zip" || goto error
+)
+
+if not exist "QtApng-%QTAPNG%.zip" (
+  echo CI safety download: QtApng-%QTAPNG%.zip
+  curl.exe -L --fail --retry 3 -o "QtApng-%QTAPNG%.zip" "https://github.com/jurplel/QtApng/archive/refs/tags/%QTAPNG%.zip" || goto error
+)
+
+if not exist "ffmpeg-%FFMPEG%.tar.xz" (
+  echo CI safety download: ffmpeg-%FFMPEG%.tar.xz
+  curl.exe -L --fail --retry 3 -o "ffmpeg-%FFMPEG%.tar.xz" "https://ffmpeg.org/releases/ffmpeg-%FFMPEG%.tar.xz" || goto error
+)
+
+if not exist "make-%MAKE%-without-guile-w32-bin.zip" (
+  echo CI safety download: make-%MAKE%-without-guile-w32-bin.zip
+  curl.exe -L --fail --retry 3 -o "make-%MAKE%-without-guile-w32-bin.zip" "https://sourceforge.net/projects/ezwinports/files/make-%MAKE%-without-guile-w32-bin.zip/download" || goto error
+)
+
+if not exist "meson-%MESON%.tar.gz" (
+  echo CI safety download: meson-%MESON%.tar.gz
+  curl.exe -L --fail --retry 3 -o "meson-%MESON%.tar.gz" "https://github.com/mesonbuild/meson/releases/download/%MESON%/meson-%MESON%.tar.gz" || goto error
+)
+
+if not exist "pkgconf-pkgconf-%PKGCONF%.zip" (
+  echo CI safety download: pkgconf-pkgconf-%PKGCONF%.zip
+  curl.exe -L --fail --retry 3 -o "pkgconf-pkgconf-%PKGCONF%.zip" "https://github.com/pkgconf/pkgconf/archive/refs/tags/pkgconf-%PKGCONF%.zip" || goto error
+)
+
+if not exist "libvpl-%LIBVPL%.zip" (
+  echo CI safety download: libvpl-%LIBVPL%.zip
+  curl.exe -L --fail --retry 3 -o "libvpl-%LIBVPL%.zip" "https://github.com/intel/libvpl/archive/v%LIBVPL%.zip" || goto error
+)
+
+if not exist "nv-codec-headers-%NVENC%.tar.gz" (
+  echo CI safety download: nv-codec-headers-%NVENC%.tar.gz
+  curl.exe -L --fail --retry 3 -o "nv-codec-headers-%NVENC%.tar.gz" "https://github.com/FFmpeg/nv-codec-headers/releases/download/n%NVENC%/nv-codec-headers-%NVENC%.tar.gz" || goto error
+)
+
+if not exist "opus-%LIBOPUS%.tar.gz" (
+  echo CI safety download: opus-%LIBOPUS%.tar.gz
+  curl.exe -L --fail --retry 3 -o "opus-%LIBOPUS%.tar.gz" "https://downloads.xiph.org/releases/opus/opus-%LIBOPUS%.tar.gz" || goto error
+)
+
+if not exist "SVT-AV1-v%LIBSVTAV1%.zip" (
+  echo CI safety download: SVT-AV1-v%LIBSVTAV1%.zip
+  curl.exe -L --fail --retry 3 -o "SVT-AV1-v%LIBSVTAV1%.zip" "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v%LIBSVTAV1%/SVT-AV1-v%LIBSVTAV1%.zip" || goto error
+)
+
+if not exist "x264-%LIBX264%.zip" (
+  echo CI safety download: x264-%LIBX264%.zip
+  curl.exe -L --fail --retry 3 -o "x264-%LIBX264%.zip" "https://code.videolan.org/videolan/x264/-/archive/%LIBX264%.zip" || goto error
+)
+
+if not exist "freetype-%FREETYPE%.tar.gz" (
+  echo CI safety download: freetype-%FREETYPE%.tar.gz
+  curl.exe -L --fail --retry 3 -o "freetype-%FREETYPE%.tar.gz" "https://sourceforge.net/projects/freetype/files/freetype2/%FREETYPE%/freetype-%FREETYPE%.tar.gz/download" || goto error
+)
+
+if not exist "harfbuzz-%HARFBUZZ%.zip" (
+  echo CI safety download: harfbuzz-%HARFBUZZ%.zip
+  curl.exe -L --fail --retry 3 -o "harfbuzz-%HARFBUZZ%.zip" "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/%HARFBUZZ%.zip" || goto error
+)
+
+if not exist "lpng%LIBPNG%.zip" (
+  echo CI safety download: lpng%LIBPNG%.zip
+  curl.exe -L --fail --retry 3 -o "lpng%LIBPNG%.zip" "https://download.sourceforge.net/libpng/lpng1658.zip" || goto error
+)
+
+if not exist "lpng%LIBPNG%-apng.patch.gz" (
+  echo CI safety download: lpng%LIBPNG%-apng.patch.gz
+  curl.exe -L --fail --retry 3 -o "lpng%LIBPNG%-apng.patch.gz" "https://download.sourceforge.net/libpng-apng/libpng-%LIBPNGLONG%-apng.patch.gz" || goto error
+)
+
+if not exist "libjpeg-turbo-%LIBJPEGTURBO%.tar.gz" (
+  echo CI safety download: libjpeg-turbo-%LIBJPEGTURBO%.tar.gz
+  curl.exe -L --fail --retry 3 -o "libjpeg-turbo-%LIBJPEGTURBO%.tar.gz" "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/%LIBJPEGTURBO%/libjpeg-turbo-%LIBJPEGTURBO%.tar.gz" || goto error
+)
+
+if not exist "libwebp-%WEBP%.tar.gz" (
+  echo CI safety download: libwebp-%WEBP%.tar.gz
+  curl.exe -L --fail --retry 3 -o "libwebp-%WEBP%.tar.gz" "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-%WEBP%.tar.gz" || goto error
+)
+
+if not exist "%SDL%.zip" (
+  echo CI safety download: %SDL%.zip
+  curl.exe -L --fail --retry 3 -o "%SDL%.zip" "https://libsdl.org/release/%SDL%.zip" || goto error
+)
+
+if not exist "lz4-%LZ4%.zip" (
+  echo CI safety download: lz4-%LZ4%.zip
+  curl.exe -L --fail --retry 3 -o "lz4-%LZ4%.zip" "https://github.com/lz4/lz4/archive/refs/tags/v%LZ4%.zip" || goto error
+)
+
+if not exist "zlib%ZLIBSHORT%.zip" (
+  echo CI safety download: zlib%ZLIBSHORT%.zip
+  curl.exe -L --fail --retry 3 -o "zlib%ZLIBSHORT%.zip" "https://github.com/madler/zlib/releases/download/v%ZLIB%/zlib%ZLIBSHORT%.zip" || goto error
+)
+
+if not exist "zstd-%ZSTD%.zip" (
+  echo CI safety download: zstd-%ZSTD%.zip
+  curl.exe -L --fail --retry 3 -o "zstd-%ZSTD%.zip" "https://github.com/facebook/zstd/archive/refs/tags/v%ZSTD%.zip" || goto error
+)
+
+if not exist "KDDockWidgets-%KDDOCKWIDGETS%.zip" (
+  echo CI safety download: KDDockWidgets-%KDDOCKWIDGETS%.zip
+  curl.exe -L --fail --retry 3 -o "KDDockWidgets-%KDDOCKWIDGETS%.zip" "https://github.com/KDAB/KDDockWidgets/archive/v%KDDOCKWIDGETS%.zip" || goto error
+)
+
+if not exist "plutovg-%PLUTOVG%.zip" (
+  echo CI safety download: plutovg-%PLUTOVG%.zip
+  curl.exe -L --fail --retry 3 -o "plutovg-%PLUTOVG%.zip" "https://github.com/sammycage/plutovg/archive/v%PLUTOVG%.zip" || goto error
+)
+
+if not exist "plutosvg-%PLUTOSVG%.zip" (
+  echo CI safety download: plutosvg-%PLUTOSVG%.zip
+  curl.exe -L --fail --retry 3 -o "plutosvg-%PLUTOSVG%.zip" "https://github.com/sammycage/plutosvg/archive/v%PLUTOSVG%.zip" || goto error
+)
+
+if not exist "agility-sdk-%AGILITYSDK%.nupkg" (
+  echo CI safety download: agility-sdk-%AGILITYSDK%.nupkg
+  curl.exe -L --fail --retry 3 -o "agility-sdk-%AGILITYSDK%.nupkg" "https://www.nuget.org/api/v2/package/Microsoft.Direct3D.D3D12/%AGILITYSDK%" || goto error
+)
+
+if not exist "DirectX-Headers-%DXHEADERS%.zip" (
+  echo CI safety download: DirectX-Headers-%DXHEADERS%.zip
+  curl.exe -L --fail --retry 3 -o "DirectX-Headers-%DXHEADERS%.zip" "https://github.com/microsoft/DirectX-Headers/archive/v%DXHEADERS%.zip" || goto error
+)
+
+if not exist "rapidyaml-%RAPIDYAML%-src.zip" (
+  echo CI safety download: rapidyaml-%RAPIDYAML%-src.zip
+  curl.exe -L --fail --retry 3 -o "rapidyaml-%RAPIDYAML%-src.zip" "https://github.com/biojppm/rapidyaml/releases/download/v%RAPIDYAML%/rapidyaml-%RAPIDYAML%-src.zip" || goto error
+)
+
+if not exist "shaderc-%SHADERC%.zip" (
+  echo CI safety download: shaderc-%SHADERC%.zip
+  curl.exe -L --fail --retry 3 -o "shaderc-%SHADERC%.zip" "https://github.com/google/shaderc/archive/refs/tags/v%SHADERC%.zip" || goto error
+)
+
+if not exist "shaderc-glslang-%SHADERC_GLSLANG%.zip" (
+  echo CI safety download: shaderc-glslang-%SHADERC_GLSLANG%.zip
+  curl.exe -L --fail --retry 3 -o "shaderc-glslang-%SHADERC_GLSLANG%.zip" "https://github.com/KhronosGroup/glslang/archive/%SHADERC_GLSLANG%.zip" || goto error
+)
+
+if not exist "shaderc-spirv-headers-%SHADERC_SPIRVHEADERS%.zip" (
+  echo CI safety download: shaderc-spirv-headers-%SHADERC_SPIRVHEADERS%.zip
+  curl.exe -L --fail --retry 3 -o "shaderc-spirv-headers-%SHADERC_SPIRVHEADERS%.zip" "https://github.com/KhronosGroup/SPIRV-Headers/archive/%SHADERC_SPIRVHEADERS%.zip" || goto error
+)
+
+if not exist "shaderc-spirv-tools-%SHADERC_SPIRVTOOLS%.zip" (
+  echo CI safety download: shaderc-spirv-tools-%SHADERC_SPIRVTOOLS%.zip
+  curl.exe -L --fail --retry 3 -o "shaderc-spirv-tools-%SHADERC_SPIRVTOOLS%.zip" "https://github.com/KhronosGroup/SPIRV-Tools/archive/%SHADERC_SPIRVTOOLS%.zip" || goto error
+)
+
+
 if %DEBUG%==1 (
   echo Building debug and release libraries...
 ) else (
@@ -153,20 +334,57 @@ if !ERRORLEVEL!==0 (
   set FOUND_NASM=1
 )
 
+
 echo "Installing AMF headers"
-rmdir /S /Q "amf-headers-v%AMF%"
-tar -xf "amf-headers-v%AMF%.tar.gz" || goto error
-xcopy "%BUILDDIR%\amf-headers-v%AMF%\AMF" "%INSTALLDIR%\include\AMF\" /y /s || goto error
+
+set "AMF_ARCHIVE=amf-v%AMF%.tar.gz"
+set "AMF_URL=https://github.com/GPUOpen-LibrariesAndSDKs/AMF/archive/refs/tags/v%AMF%.tar.gz"
+
+echo Downloading %AMF_ARCHIVE% from %AMF_URL%...
+curl.exe -L --fail --retry 3 -o "%AMF_ARCHIVE%" "%AMF_URL%" || goto error
+
+if not exist "%AMF_ARCHIVE%" (
+    echo ERROR: AMF archive missing after download.
+    goto error
+)
+
+rmdir /S /Q "AMF-%AMF%" 2>nul
+tar -xf "%AMF_ARCHIVE%" || goto error
+
+if not exist "AMF-%AMF%\amf\public\include" (
+    echo ERROR: Extracted AMF headers path missing.
+    goto error
+)
+
+xcopy "AMF-%AMF%\amf\public\include\*" "%INSTALLDIR%\include\AMF\" /y /s /e /i || goto error
 echo.
 
 echo "Installing libvpl"
-rmdir /S /Q "libvpl-%LIBVPL%"
-%SEVENZIP% x "libvpl-%LIBVPL%.zip" || goto error
+
+set "LIBVPL_ARCHIVE=libvpl-%LIBVPL%.zip"
+set "LIBVPL_URL=https://github.com/intel/libvpl/archive/v%LIBVPL%.zip"
+
+rem The normal download phase above should already have fetched this archive.
+rem Keep a direct fallback here so the install step cannot fail just because
+rem the earlier download was skipped or the CI cache is incomplete.
+if not exist "%LIBVPL_ARCHIVE%" (
+  echo Downloading %LIBVPL_ARCHIVE% from %LIBVPL_URL%...
+  curl.exe -L --fail --retry 3 -o "%LIBVPL_ARCHIVE%" "%LIBVPL_URL%" || goto error
+)
+
+if not exist "%LIBVPL_ARCHIVE%" (
+  echo ERROR: libvpl archive missing after download.
+  goto error
+)
+
+rmdir /S /Q "libvpl-%LIBVPL%" 2>nul
+%SEVENZIP% x "%LIBVPL_ARCHIVE%" || goto error
 cd "libvpl-%LIBVPL%" || goto error
 cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_PREFIX_PATH="%INSTALLDIR%" -DCMAKE_INSTALL_PREFIX="%INSTALLDIR%" -DBUILD_SHARED_LIBS=OFF -DINSTALL_EXAMPLES=OFF -DINSTALL_LIB=OFF -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -B build -G Ninja || goto error
 cmake --build build --parallel || goto error
 ninja -C build install || goto error
 cd .. || goto error
+echo.
 
 echo "Installing libopus"
 rmdir /S /Q "opus-%LIBOPUS%"
@@ -543,14 +761,14 @@ echo Exiting with success.
 exit 0
 
 :error
-echo Failed with error #%errorlevel%.
-pause
-exit %errorlevel%
+set "BUILD_ERROR=%errorlevel%"
+echo Failed with error #%BUILD_ERROR%.
+exit /B %BUILD_ERROR%
 
 :downloadfile
 if not exist "%~1" (
   echo Downloading %~1 from %~2...
-  curl -L -o "%~1" "%~2" || goto error
+  curl.exe -L --fail --retry 3 -o "%~1" "%~2" || goto error
 )
 
 rem based on https://gist.github.com/gsscoder/e22daefaff9b5d8ac16afb070f1a7971

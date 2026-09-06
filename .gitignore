@@ -134,3 +134,4 @@ CMakeSettings.json
 /build-kfcsx2/
 /out/
 /dist/
+!common/FastJmp.asm
