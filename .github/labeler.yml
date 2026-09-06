@@ -1,0 +1,199 @@
+# Documentation - https://github.com/actions/labeler
+
+# General Labels
+'Build | Project System':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/*'
+      - '.github/**/*'
+      - '*.sln'
+      - '**/*.sln'
+      - '*.vcxproj*'
+      - '**/*.vcxproj*'
+      - 'cmake/*'
+      - 'cmake/**/*'
+      - 'CMakeLists.txt'
+      - '**/CMakeLists.txt'
+      - 'build.sh'
+'Dependencies':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '3rdparty/*'
+      - '3rdparty/**/*'
+      - '**/3rdpartyDeps.props'
+      - '.gitmodules'
+'requires-win-deps-build':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/workflows/scripts/windows/*'
+'Documentation':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.md'
+      - '**/*.md'
+      - '*.pdf'
+      - '**/*.pdf'
+'GUI/Qt':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2-qt/*'
+      - 'kfcsx2-qt/**/*'
+      - '3rdparty/Qt/*'
+      - '3rdparty/Qt/**/*'
+'OSD / ImGui':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/ImGui/*'
+      - 'kfcsx2/ImGui/**/*'
+      - '3rdparty/imgui/*'
+      - '3rdparty/imgui/**/*'
+'GameDB':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/GameIndex.*'
+'Installer | Package':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'build.sh'
+'Translations':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2-qt/Translations/*'
+
+# Tools / Features
+'Debugger':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/DebugTools/*'
+      - 'kfcsx2/DebugTools/**/*'
+      - 'kfcsx2-qt/Debugger/*'
+      - 'kfcsx2-qt/Debugger/**/*'
+'IPC':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/IPC*'
+      - 'kfcsx2/**/IPC*'
+'TAS Functionality':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/Recording/*'
+      - 'kfcsx2/Recording/**/*'
+'RetroAchievements':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/Frontend/Achievements.*'
+      - 'kfcsx2/Achievements.*'
+
+# Emulation Components
+'Counters':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/Counters.*'
+'Vector Units':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/VU*'
+      - 'kfcsx2/**/VU*'
+      - 'kfcsx2/*VU*'
+      - 'kfcsx2/**/*VU*'
+'VIF':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/Vif*'
+      - 'kfcsx2/**/Vif*'
+      - 'kfcsx2/VIF*'
+      - 'kfcsx2/**/VIF*'
+
+# GS Related Labels
+'GS':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/*'
+      - 'kfcsx2/GS/**/*'
+      - 'bin/resources/shaders/*'
+      - 'bin/resources/shaders/**/*'
+'GS: Direct3D 11':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/DX11/*'
+      - 'kfcsx2/GS/Renderers/DX11/**/*'
+      - 'bin/resources/shaders/dx11/*'
+      - 'bin/resources/shaders/dx11/**/*'
+'GS: Direct3D 12':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/DX12/*'
+      - 'kfcsx2/GS/Renderers/DX12/**/*'
+      - 'bin/resources/shaders/dx11/*'
+      - 'bin/resources/shaders/dx11/**/*'
+'GS: Hardware':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/HW/*'
+      - 'kfcsx2/GS/Renderers/HW/**/*'
+'GS: OpenGL':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/OpenGL/*'
+      - 'kfcsx2/GS/Renderers/OpenGL/**/*'
+      - 'bin/resources/shaders/opengl/*'
+      - 'bin/resources/shaders/opengl/**/*'
+'GS: Vulkan':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/Vulkan/*'
+      - 'kfcsx2/GS/Renderers/Vulkan/**/*'
+      - 'bin/resources/shaders/vulkan/*'
+      - 'bin/resources/shaders/vulkan/**/*'
+'GS: Metal':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/Metal/*'
+      - 'kfcsx2/GS/Renderers/Metal/**/*'
+'GS: Texture Cache':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/*TextureCache*.*'
+      - 'kfcsx2/GS/Renderers/**/*TextureCache*.*'
+'GS: Software':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/GS/Renderers/SW/*'
+      - 'kfcsx2/GS/Renderers/SW/**/*'
+
+# Other Core Components
+'CDVD':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/CDVD/*'
+      - 'kfcsx2/CDVD/**/*'
+'DEV9':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/DEV9/*'
+      - 'kfcsx2/DEV9/**/*'
+'IPU':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/IPU/*'
+      - 'kfcsx2/IPU/**/*'
+'Memory Card':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/SIO/Memcard/*'
+      - 'kfcsx2/SIO/Memcard/**/*'
+'PAD':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/SIO/Pad/*'
+      - 'kfcsx2/SIO/Pad/**/*'
+'SPU2':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/SPU2/*'
+      - 'kfcsx2/SPU2/**/*'
+'USB':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'kfcsx2/USB/*'
+      - 'kfcsx2/USB/**/*'
