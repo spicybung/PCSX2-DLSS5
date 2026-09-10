@@ -3,6 +3,9 @@ build.ninja
 
 # Build objects and artifacts
 deps/
+!deps/clog/**
+!deps/clog/
+!deps/
 build/
 bin/
 lib/

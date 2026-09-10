@@ -85,7 +85,7 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUM: ${{ github.event.pull_request.number }}
           PR_SHA: ${{ github.event.pull_request.head.sha }}
-        run: ./.github/workflows/scripts/common/name-artifacts.sh
+        run: bash ./.github/workflows/scripts/common/name-artifacts.sh
 
       - name: Install Packages
         env:
@@ -107,7 +107,7 @@ jobs:
       - name: Build Dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: |
-          .github/workflows/scripts/macos/build-dependencies${{ case(inputs.arch == 'x86-64', '', '-universal') }}.sh "$HOME/deps"
+          bash .github/workflows/scripts/macos/build-dependencies${{ case(inputs.arch == 'x86-64', '', '-universal') }}.sh "$HOME/deps"
 
       - name: Download patches
         run: |
@@ -166,7 +166,7 @@ jobs:
 
       - name: Prepare Build Artifacts
         run: |
-          mv build/pcsx2*/PCSX2.app PCSX2.app
+          mv build/kfcsx2-qt/PCSX2.app PCSX2.app
 
       - name: Pull the Signing Keys and Notarization Credentials
         if: ${{ inputs.sign_and_notarize == true && env.SIGN_KEY }}

@@ -14,11 +14,16 @@
 *.aps
 *.exe
 *.wav
+!bin/resources/sounds/achievements/unlock.wav
+!bin/resources/sounds/achievements/lbsubmit.wav
+!bin/resources/sounds/achievements/message.wav
 
 *.trace
 *.dump
 
 *.asm
+!common/FastJmp.asm
+!common/FastJmp.aarch64.asm
 
 *.VC.db
 *.VC.VC.opendb
@@ -29,6 +34,8 @@ svnrev.h
 
 /build*
 !/BUILD-INSTALL-DLSS5.cmd
+!/BUILD_AND_RUN.cmd
+!/BUILD-INSTALL-KFCSX2-DLSS5.cmd
 /obj-*
 *.obj
 
@@ -126,12 +133,3 @@ CMakeSettings.json
 /ci-artifacts/
 /out/
 /.cache/
-
-# KFCSX2 local build/dependency output
-/deps/
-/build/
-/build-*/
-/build-kfcsx2/
-/out/
-/dist/
-!common/FastJmp.asm

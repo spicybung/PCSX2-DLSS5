@@ -80,7 +80,7 @@ jobs:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUM: ${{ github.event.pull_request.number }}
           PR_SHA: ${{ github.event.pull_request.head.sha }}
-        run: ./.github/workflows/scripts/common/name-artifacts.sh
+        run: bash ./.github/workflows/scripts/common/name-artifacts.sh
 
       - name: Download patches
         run: |

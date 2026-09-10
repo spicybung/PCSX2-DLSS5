@@ -1200,7 +1200,7 @@ if(ARCH_X86)
 endif()
 target_include_directories(PCSX2_FLAGS INTERFACE
 	"${CMAKE_CURRENT_SOURCE_DIR}"
-	"${CMAKE_BINARY_DIR}/pcsx2"
+	"${CMAKE_CURRENT_BINARY_DIR}"
 	"${CMAKE_BINARY_DIR}/common/include"
 	"${FFMPEG_INCLUDE_DIRS}"
 )
