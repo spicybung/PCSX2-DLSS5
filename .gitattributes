@@ -6,4 +6,3 @@
 *.props text eol=crlf
 *.vcxproj text eol=crlf
 *.vcxproj.filters text eol=crlf
-* text=auto eol=lf

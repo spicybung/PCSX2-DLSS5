@@ -37,7 +37,7 @@ BUILDDIR=$2
 DEPSDIR=$3
 NAME=$4
 
-BINARY=pcsx2-qt
+BINARY=KFCSX2
 APPDIRNAME=PCSX2.AppDir
 STRIP=strip
 
@@ -52,17 +52,17 @@ LINUXDEPLOY_PLUGIN_QT=./linuxdeploy-plugin-qt-x86_64.AppImage
 APPIMAGETOOL=./appimagetool-x86_64.AppImage
 
 if [ ! -f "$LINUXDEPLOY" ]; then
-	"$PCSX2DIR/tools/retry.sh" wget -O "$LINUXDEPLOY" https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+	bash "$PCSX2DIR/tools/retry.sh" wget -O "$LINUXDEPLOY" https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
 	chmod +x "$LINUXDEPLOY"
 fi
 
 if [ ! -f "$LINUXDEPLOY_PLUGIN_QT" ]; then
-	"$PCSX2DIR/tools/retry.sh" wget -O "$LINUXDEPLOY_PLUGIN_QT" https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+	bash "$PCSX2DIR/tools/retry.sh" wget -O "$LINUXDEPLOY_PLUGIN_QT" https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
 	chmod +x "$LINUXDEPLOY_PLUGIN_QT"
 fi
 
 if [ ! -f "$APPIMAGETOOL" ]; then
-	"$PCSX2DIR/tools/retry.sh" wget -O "$APPIMAGETOOL" https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+	bash "$PCSX2DIR/tools/retry.sh" wget -O "$APPIMAGETOOL" https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
 	chmod +x "$APPIMAGETOOL"
 fi
 
@@ -111,7 +111,7 @@ EXTRA_PLATFORM_PLUGINS="libqwayland.so" \
 DEPLOY_PLATFORM_THEMES="1" \
 QMAKE="$DEPSDIR/bin/qmake" \
 NO_STRIP="1" \
-$LINUXDEPLOY --plugin qt --appdir="$OUTDIR" --executable="$BUILDDIR/bin/pcsx2-qt" ${EXTRA_LIBS_ARGS[@]} \
+$LINUXDEPLOY --plugin qt --appdir="$OUTDIR" --executable="$BUILDDIR/bin/KFCSX2" ${EXTRA_LIBS_ARGS[@]} \
 --desktop-file="net.pcsx2.PCSX2.desktop" --icon-file="PCSX2.png"
 
 echo "Copying resources into AppDir..."
@@ -128,7 +128,7 @@ cp -a "$BUILDDIR/bin/translations" "$OUTDIR/usr/bin"
 # Generate AppStream meta-info.
 echo "Generating AppStream metainfo..."
 mkdir -p "$OUTDIR/usr/share/metainfo"
-"$SCRIPTDIR/generate-metainfo.sh" "$OUTDIR/usr/share/metainfo/net.pcsx2.PCSX2.appdata.xml"
+bash "$SCRIPTDIR/generate-metainfo.sh" "$OUTDIR/usr/share/metainfo/net.pcsx2.PCSX2.appdata.xml"
 
 echo "Generating AppImage..."
 GIT_VERSION=$(git tag --points-at HEAD)

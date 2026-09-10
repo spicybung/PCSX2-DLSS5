@@ -6,7 +6,7 @@ on:
       - "l10n_master"
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build_macos_qt:

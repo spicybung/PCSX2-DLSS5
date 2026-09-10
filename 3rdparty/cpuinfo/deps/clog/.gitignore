@@ -3,20 +3,11 @@ build.ninja
 
 # Build objects and artifacts
 deps/
-!deps/clog/**
-!deps/clog/
-!deps/
 build/
 bin/
 lib/
-libs/
-obj/
 *.pyc
 *.pyo
-
-# Bazel-related files
-bazel-*
-MODULE.bazel.lock
 
 # System files
 .DS_Store

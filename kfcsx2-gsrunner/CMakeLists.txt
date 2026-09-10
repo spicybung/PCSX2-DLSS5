@@ -12,7 +12,7 @@ target_sources(pcsx2-gsrunner PRIVATE
 
 target_include_directories(pcsx2-gsrunner PRIVATE
 	"${CMAKE_BINARY_DIR}/common/include"
-	"${CMAKE_SOURCE_DIR}/pcsx2"
+	"${CMAKE_SOURCE_DIR}/kfcsx2"
 )
 
 target_link_libraries(pcsx2-gsrunner PRIVATE
